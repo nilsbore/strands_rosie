@@ -1,0 +1,155 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[T1]{fontenc}
+%\usepackage[applemac]{inputenc}
+\usepackage[swedish]{babel}
+\usepackage{latexsym}
+\usepackage{amsthm}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{moreverb}
+\usepackage{caption}
+\usepackage{subcaption}
+%\usepackage[style=mla]{biblatex-mla}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{color} %red, green, blue, yellow, cyan, magenta, black, white
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+
+\pagestyle {headings}
+
+\title{Rosie - Start Up Sequence and Steps for Recovery}
+\author{Nils Bore}
+
+\begin{document}
+
+\lstset{language=Matlab,%
+    %basicstyle=\color{red},
+    breaklines=true,%
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},%
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},%
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},%
+    showstringspaces=false,%without this there will be a symbol in the places where there is a space
+    numbers=left,%
+    numberstyle={\tiny \color{black}},% size of the numbers
+    numbersep=9pt, % this defines how far the numbers are from the text
+    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
+    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Hardware Start-up}
+
+Turn the key on the right side of Rosie. It is underneath the computer so it is a little hard to reach. Turn the leaver carefully to the left. This will power up the robot. The display next to it comes to life now, choose \textit{Start Robot \& PC}. Sometimes the computer does not turn on completely. In this case, turn of the switch by pulling it back towards you and repeat. Once you reach the login screen, choose the \textit{strands-user} user. The password is \textit{strands}.
+
+\section{Considerations \& Charging}
+\label{considerations}
+
+In the top right corner of the screen next to the key, there is an indicator of the
+remaining battery on the robot. This should not fall below about 20\%. When it 
+does, the robot needs to be charged. If you have started up the robot launch files 
+you can also check the battery level with \texttt{rostopic echo /battery\_state}. 
+In general, it suffices to check the indicator.
+
+The charging is most easily done by plugging in a usual desktop power cable in the 
+back at the floor. You can find such a cable in room 612, marked with red tape.
+The robot must be powered when it's charging. Follow the steps in Section \ref{shutdown} to power the robot down. Then turn it on again by turning the
+leaver to the left. Don't start up anything else, just plug in the cable in the back. When you leave the robot for the day, you should leave her like this
+so that she has power for the next day.
+
+Sometimes you'll have to push the robot, for example at start-up for localization
+or for helping her out of a tricky situation (see Section \ref{help}).
+If the help screen has not been presented and you want to push her anyways,
+you need to make sure that she is in \textit{free run}. This means that
+the motors are disabled and she can be pushed unhindered. You enable free run
+on the small screen down on the left side at the key. Go to \textit{Switching Menu}
+at the top level by turning the button on the right, press it to enter. Then
+go to \textit{Free Run}, again by turning the button and pressing. Once it says
+\textit{Free Run On} you can safely push the robot.
+
+\section{Software Start-up}
+\label{startup}
+
+Once inside, fire up a new terminal with \texttt{ctrl+alt+t}. Launch the tmux environment with \texttt{rosrun strands\_rosie start.sh}. This is a tmux session, see \href{https://www.digitalocean.com/community/tutorials/how-to-install-and-use-tmux-on-ubuntu-12-10--2}{tmux}. Basically this is a horizontal layout of terminal windows, numbered from 0-7. You start in window 0, which already has the  \texttt{roscore} running. You are now going to start all of the launch files sequentially. You move to the next launch file by pressing first \texttt{ctrl+b} and then \texttt{n} (next). This moves you to `strands\_core`, which launches the robot's database. At this point, you should just have to press \texttt{enter} and then move on to the next session with \texttt{ctrl+b} and \texttt{n}. This brings you to the robot drivers start-up. Again, just press enter. These steps are to be repeated until the last terminal (7) containing \texttt{Rviz} is started. The sessions contained are the following:
+
+\begin{enumerate}[start=0]
+\item \texttt{roscore} - start the roscore
+
+\item \texttt{rosie\_core} - start the datacentre
+
+\item \texttt{rosie\_robot} - start the robot drivers
+
+\item \texttt{rosie\_cameras} - start the camera on the "waist"
+
+\item \texttt{strands\_ui} - start the help screen displayed when Rosie gets stuck
+
+\item \texttt{rosie\_navigation} - start the navigation, including localization and topological navigation between predefined way points
+
+\item \texttt{rosie\_head\_camera} - start the camera on top of the head
+
+\item \texttt{RViz} - start Rviz for localization and initial pose estimate
+\end{enumerate}
+
+So again, move between these sessions with \texttt{ctrl+b} and \texttt{n} (for going to the \textit{next} panel and \texttt{p} for going to the \textit{previous}. You can also use a number, e.g. \texttt{ctrl+b} and 5 for going directly to \texttt{rosie\_navigation}.
+
+\textbf{IMPORTANT:} Step number 6, \texttt{rosie\_head\_camera} might be a bit
+tricky, this won't give you the right command directly if the computer on the left
+wasn't running when you launched the tmux session. First of all, you need to
+make sure that the side computer is running (the left fan is spinning).
+You start it by pressing the small red button hanging on the cable on the left.
+Then you need to insert the 3 commands:
+
+\begin{itemize}
+\item \texttt{ssh hydro-default@strands-sidekick}
+\item \texttt{source release\_ws/devel/setup.bash}
+\item \texttt{roslaunch openni\_wrapper main.launch camera:=head\_xtion}
+\end{itemize}
+
+Sometimes you might have to wait a bit after the computer has powered on
+to \texttt{ssh} to it.
+
+\subsection{Initial Localization}
+
+When all the nodes have been launched, Rosie doesn't know where in the office
+she is. You will have to help her by pointing out the current position in Rviz.
+In Rviz, press the \textit{2D Pose Estimate} button, you'll need the mouse
+for this. Then point on the map, with the arrow in the correct position and
+pointing in the same direction as the robot. Validate that the localization is
+good by checking that the laser scan (red dots) are aligning well with the walls.
+To improve localization before starting navigating, you should put the robot
+into free run and push here around manually until the scans align with the walls.
+
+\subsection{Launch the Help Screen}
+\label{help}
+
+Open a Chromium window and go to \texttt{http://localhost:8090}. It is the
+home page of the browser (click the home button). You'll have to have this
+page open when Rosie asks for help. To help here, click the \textit{Help}
+button and push her (she should be in free run now) to a position from
+where she can navigate. Click\textit{OK} when you want here to continue.
+
+\section{Software Re-start}
+
+Sometimes, when stuff is not working, you might have to restart some software. To begin with, you should try to help the robot via the help screen and push her somewhere else to see if navigation resumes. You might have to activate the \textit{free run} mode (explained in Section \ref{considerations}) to push her if she has not asked for help.
+
+If this does not help, or is not possible, you should first try to restart navigation. In the tmux session, do \texttt{ctrl+b} and 5 to get there. Then do \texttt{ctrl+c} to kill the current process. Press \texttt{up} to get the previous command \texttt{roslaunch strands\_rosie rosie\_navigation.launch} and hit \texttt{enter}.
+
+If she still has not managed to recover, you might have to restart all the processes. To kill the tmux session, type \texttt{ctrl+b} and \texttt{d} to detach within the current session and then type \texttt{killall tmux} to kill the processes. You then go through the steps in Section \ref{startup} again.
+
+\section{Robot Shutdown}
+\label{shutdown}
+
+So you already know how to kill the processes: To kill the tmux session, type \texttt{ctrl+b} and \texttt{d} to detach within the current session and then type \texttt{killall tmux} to kill the processes.
+Press the button on the left computer until it power off (the fan stops).
+Then shut down the operating system an power off the computer by pulling
+the leaver on the left side gently towards you.
+
+\end{document}
