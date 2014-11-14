@@ -7,10 +7,10 @@ tmux -2 new-session -d -s $SESSION
 tmux new-window -t $SESSION:0 -n 'roscore'
 tmux new-window -t $SESSION:1 -n 'rosie_core'
 tmux new-window -t $SESSION:2 -n 'rosie_robot'
-tmux new-window -t $SESSION:3 -n 'strands_ui'
-tmux new-window -t $SESSION:4 -n 'rosie_navigation'
-tmux new-window -t $SESSION:5 -n 'rosie_head_camera'
-tmux new-window -t $SESSION:6 -n 'door_pass'
+tmux new-window -t $SESSION:3 -n 'rosie_cameras'
+tmux new-window -t $SESSION:4 -n 'strands_ui'
+tmux new-window -t $SESSION:5 -n 'rosie_navigation'
+tmux new-window -t $SESSION:6 -n 'rosie_head_camera'
 tmux new-window -t $SESSION:7 -n 'RViz'
 
 
@@ -30,18 +30,18 @@ tmux select-window -t $SESSION:2
 tmux send-keys "roslaunch strands_rosie rosie_robot.launch"
 
 tmux select-window -t $SESSION:3
-tmux send-keys "roslaunch strands_ui strands_ui.launch"
+tmux send-keys "roslaunch strands_rosie rosie_cameras.launch"
 
 tmux select-window -t $SESSION:4
-tmux send-keys "roslaunch strands_rosie rosie_navigation.launch"
+tmux send-keys "roslaunch strands_ui strands_ui.launch"
 
 tmux select-window -t $SESSION:5
+tmux send-keys "roslaunch strands_rosie rosie_navigation.launch"
+
+tmux select-window -t $SESSION:6
 tmux send-keys "ssh hydro-default@strands-sidekick" C-m
 tmux send-keys "source release_ws/devel/setup.bash" C-m
 tmux send-keys "roslaunch openni_wrapper main.launch camera:=head_xtion"
-
-tmux select-window -t $SESSION:6
-tmux send-keys "rosrun door_pass door_pass.py"
 
 tmux select-window -t $SESSION:7
 tmux send-keys "rosrun rviz rviz"

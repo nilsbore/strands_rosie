@@ -6,17 +6,8 @@
 
     <arg name="laser" default="/dev/ttyUSB0" />
 
-    <arg name="head_camera" default="false" />
-    <arg name="head_ip" default="strands-sidekick" />
-    <arg name="head_user" default="hydro-default" />
-
-    <arg name="chest_camera" default="true" />
-    <arg name="chest_ip" default="scitosstrands" />
-    <arg name="chest_user" default="strands-user" />
-
     <arg name="with_mux" default="false"/>
     <arg name="js" default="$(optenv JOYSTICK_DEVICE /dev/js1)" />
-
 
     <!-- Robot -->
     <include file="$(find strands_bringup)/launch/strands_robot.launch">
@@ -28,16 +19,6 @@
 
         <!-- SICK S300 -->
         <arg name="laser"  value="$(arg laser)"/>
-
-        <!-- Head Xtion Camera -->
-        <arg name="head_camera" value="$(arg head_camera)" />
-        <arg name="head_ip"     value="$(arg head_ip)" />
-        <arg name="head_user"   value="$(arg head_user)" />
-
-        <!-- Chest Xtion Camera -->
-        <arg name="chest_camera" value="$(arg chest_camera)" />
-        <arg name="chest_ip"     value="$(arg chest_ip)" />
-        <arg name="chest_user"   value="$(arg chest_user)" />
 
         <!-- cmd vel mux -->
         <arg name="with_mux" value="$(arg with_mux)"/>
