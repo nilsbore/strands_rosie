@@ -1,0 +1,41 @@
+<launch>
+  <arg name="machine" default="localhost" />
+  <arg name="user" default=""/>
+
+  <arg name="with_camera" default="true"/>
+
+  <arg name="camera" default="chest_xtion"/>
+  <arg name="camera_ip" default="scitosstrands"/>
+  <arg name="camera_user" default="strands-user"/>
+
+
+  <arg name="map" default="/opt/strands/maps/kth_floorsix_y2_cropped.yaml"/>
+  <arg name="with_no_go_map" default="false"/>
+  <arg name="no_go_map" default=""/>
+  <arg name="with_mux" default="false" />
+
+  <arg name="topological_map" default="kth_floorsix_doorpass_topo"/>
+
+
+  <!-- STRANDS navigation -->
+  <include file="$(find strands_bringup)/launch/strands_navigation.launch" >
+    <arg name="machine" value="$(arg machine)"/>
+    <arg name="user" value="$(arg user)"/>
+    <!-- <arg name="remote" value="$(arg remote)"/> -->
+
+    <!-- strands_movebase -->
+    <arg name="with_camera" value="$(arg with_camera)"/>
+    <arg name="camera" value="$(arg camera)"/>
+    <arg name="camera_ip" value="$(arg camera_ip)"/>
+    <arg name="camera_user" value="$(arg camera_user)"/>
+
+    <arg name="map" value="$(arg map)"/>
+    <arg name="with_no_go_map" value="$(arg with_no_go_map)"/>
+    <arg name="no_go_map" value="$(arg no_go_map)"/>
+
+    <arg name="with_mux" value="$(arg with_mux)"/>
+
+    <arg name="topological_map" value="$(arg topological_map)"/>
+
+  </include>
+</launch>
