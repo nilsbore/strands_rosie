@@ -12,6 +12,7 @@ tmux new-window -t $SESSION:4 -n 'strands_ui'
 tmux new-window -t $SESSION:5 -n 'rosie_navigation'
 tmux new-window -t $SESSION:6 -n 'rosie_head_camera'
 tmux new-window -t $SESSION:7 -n 'RViz'
+tmux new-window -t $SESSION:8 -n 'drop_nodes'
 
 
 
@@ -45,6 +46,9 @@ tmux send-keys "roslaunch openni_wrapper main.launch camera:=head_xtion"
 
 tmux select-window -t $SESSION:7
 tmux send-keys "rosrun rviz rviz"
+
+tmux select-window -t $SESSION:8
+tmux send-keys "rosrun topic_tools drop /head_xtion/rgb/image_color/compressed 9 10 /head_xtion/rgb/image_color/reducedBW/compressed & rosrun topic_tools drop /head_xtion/depth/image_rect/compressedDepth 9 10 /head_xtion/depth_registered/image_rect/reducedBW/compressedDepth"
 
 # Set default window
 tmux select-window -t $SESSION:0
