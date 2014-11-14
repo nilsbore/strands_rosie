@@ -53,18 +53,21 @@ Turn the key on the right side of Rosie. It is underneath the computer so it is 
 \section{Considerations \& Charging}
 \label{considerations}
 
+\subsection{Battery Life}
 In the top right corner of the screen next to the key, there is an indicator of the
 remaining battery on the robot. This should not fall below about 20\%. When it 
 does, the robot needs to be charged. If you have started up the robot launch files 
 you can also check the battery level with \texttt{rostopic echo /battery\_state}. 
 In general, it suffices to check the indicator.
 
+\subsection{Charging}
 The charging is most easily done by plugging in a usual desktop power cable in the 
 back at the floor. You can find such a cable in room 612, marked with red tape.
 The robot must be powered when it's charging. Follow the steps in Section \ref{shutdown} to power the robot down. Then turn it on again by turning the
 leaver to the left. Don't start up anything else, just plug in the cable in the back. When you leave the robot for the day, you should leave her like this
 so that she has power for the next day.
 
+\subsection{Free Run}
 Sometimes you'll have to push the robot, for example at start-up for localization
 or for helping her out of a tricky situation (see Section \ref{help}).
 If the help screen has not been presented and you want to push her anyways,
@@ -78,7 +81,7 @@ go to \textit{Free Run}, again by turning the button and pressing. Once it says
 \section{Software Start-up}
 \label{startup}
 
-Once inside, fire up a new terminal with \texttt{ctrl+alt+t}. Launch the tmux environment with \texttt{rosrun strands\_rosie start.sh}. This is a tmux session, see \href{https://www.digitalocean.com/community/tutorials/how-to-install-and-use-tmux-on-ubuntu-12-10--2}{tmux}. Basically this is a horizontal layout of terminal windows, numbered from 0-7. You start in window 0, which already has the  \texttt{roscore} running. You are now going to start all of the launch files sequentially. You move to the next launch file by pressing first \texttt{ctrl+b} and then \texttt{n} (next). This moves you to `strands\_core`, which launches the robot's database. At this point, you should just have to press \texttt{enter} and then move on to the next session with \texttt{ctrl+b} and \texttt{n}. This brings you to the robot drivers start-up. Again, just press enter. These steps are to be repeated until the last terminal (7) containing \texttt{Rviz} is started. The sessions contained are the following:
+Once inside, fire up a new terminal with \texttt{ctrl+alt+t}. Launch the tmux environment with \texttt{rosrun strands\_rosie start.sh}. This is a tmux session, see \href{https://www.digitalocean.com/community/tutorials/how-to-install-and-use-tmux-on-ubuntu-12-10--2}{tmux}. Basically this is a horizontal layout of terminal windows, numbered from 0-7. You start in window 0, which already has the  \texttt{roscore} running. You are now going to start all of the launch files sequentially. You move to the next launch file by pressing first \texttt{ctrl+b} and then \texttt{n} (next). This moves you to \texttt{strands\_core}, which launches the robot's database. At this point, you should just have to press \texttt{enter} to launch and then move on to the next session with \texttt{ctrl+b} and \texttt{n}. This brings you to the robot drivers start-up. Again, just press enter. These steps are to be repeated until the last terminal (7) containing \texttt{Rviz} is started. The sessions contained are the following:
 
 \begin{enumerate}[start=0]
 \item \texttt{roscore} - start the roscore
@@ -98,7 +101,8 @@ Once inside, fire up a new terminal with \texttt{ctrl+alt+t}. Launch the tmux en
 \item \texttt{RViz} - start Rviz for localization and initial pose estimate
 \end{enumerate}
 
-So again, move between these sessions with \texttt{ctrl+b} and \texttt{n} (for going to the \textit{next} panel and \texttt{p} for going to the \textit{previous}. You can also use a number, e.g. \texttt{ctrl+b} and 5 for going directly to \texttt{rosie\_navigation}.
+So again, move between these sessions with \texttt{ctrl+b} and \texttt{n} (for going to the \textit{next} panel and \texttt{p} for going to the \textit{previous}. You can also use a number, e.g. \texttt{ctrl+b} and 5 for going directly to \texttt{rosie\_navigation}. If you for some reason want to know which command
+to enter in a terminal, you can have a look at \texttt{/home/strands-user/catkin\_ws/src/strands\_rosie/scripts/start.sh}.
 
 \textbf{IMPORTANT:} Step number 6, \texttt{rosie\_head\_camera} might be a bit
 tricky, this won't give you the right command directly if the computer on the left
