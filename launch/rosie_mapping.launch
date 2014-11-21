@@ -1,0 +1,16 @@
+
+<launch>
+    <!-- Remote Launching -->
+    <arg name="sweep_ip" default="localhost" />
+    <arg name="sweep_user" default="" />
+    <arg name="mapping_ip" default="strands-sidekick" />
+    <arg name="mapping_user" default="hydro-default" />
+
+    <include file="$(find cloud_merge)/launch/mapping.launch">
+        <arg name="mapping_ip"  value="$(arg mapping_ip)"/>
+        <arg name="mapping_user"  value="$(arg mapping_user)"/>
+        <arg name="sweep_ip"  value="$(arg sweep_ip)"/>
+        <arg name="sweep_user"  value="$(arg sweep_user)"/>
+    </include>
+
+</launch>
