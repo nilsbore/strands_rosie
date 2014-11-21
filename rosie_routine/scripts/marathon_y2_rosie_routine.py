@@ -31,18 +31,18 @@ if __name__ == '__main__':
     routine.create_patrol_routine()
 
     # do 3d scans
-    scan_waypoints = ['WayPoint2', 'WayPoint3']
+    scan_waypoints = ['WayPoint16', 'WayPoint19']
     routine.create_3d_scan_routine(waypoints=scan_waypoints, repeat_delta=timedelta(hours=1))
 
     # where to stop and what to tweet with the image
-    twitter_waypoints = [['WayPoint6', 'I hope everyone is working hard today #ERW14 #RobotMarathon'],
-                         ['WayPoint2', 'Knowledge is power for @UoBLibServices #ERW14 #RobotMarathon']]    
+    # twitter_waypoints = [['WayPoint6', 'I hope everyone is working hard today #ERW14 #RobotMarathon'],
+    #                    ['WayPoint2', 'Knowledge is power for @UoBLibServices #ERW14 #RobotMarathon']]    
     # routine.create_tweet_routine(twitter_waypoints, daily_start=time(23,00, tzinfo=localtz), daily_end=time(00,00, tzinfo=localtz))
-    routine.create_tweet_routine(twitter_waypoints)
+    # routine.create_tweet_routine(twitter_waypoints)
 
     # the list of collections from the message_store db to be replicated
-    message_store_collections = ['heads','metric_map_data','rosout_agg','robot_pose','task_events','scheduling_problems','ws_observations','monitored_nav_events','people_perception']
-    routine.message_store_entries_to_replicate(message_store_collections)
+    # message_store_collections = ['heads','metric_map_data','rosout_agg','robot_pose','task_events','scheduling_problems','ws_observations','monitored_nav_events','people_perception']
+    # routine.message_store_entries_to_replicate(message_store_collections)
 
     routine.start_routine()
 
