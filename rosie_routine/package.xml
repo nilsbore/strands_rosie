@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package>
+  <name>rosie_routine</name>
+  <version>0.0.0</version>
+  <description>Code to generate Rosie's routine robot behaviours, including repsonses to idle and low charge situations.</description>
+
+  <maintainer email="raambrus@kth.se">Rares Ambrus</maintainer>
+  <maintainer email="nbore@kth.se">Nils Bore</maintainer>
+  <author email="raambrus@kth.se">Rares Ambrus</author>
+  <author email="nbore@kth.se">Nils Bore</author>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>strands_executive_msgs</build_depend>
+  <build_depend>scitos_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>strands_navigation_msgs</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+  <build_depend>task_executor</build_depend>
+
+  <run_depend>strands_executive_msgs</run_depend>
+  <run_depend>scitos_msgs</run_depend>
+  <run_depend>std_srvs</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>strands_navigation_msgs</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
+  <run_depend>task_executor</run_depend>
+  <run_depend>mongodb_store</run_depend>
+
+</package>
