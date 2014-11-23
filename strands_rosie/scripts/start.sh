@@ -16,7 +16,7 @@ tmux new-window -t $SESSION:8 -n 'rosie_mapping'
 tmux new-window -t $SESSION:9 -n 'record_server'
 tmux new-window -t $SESSION:10 -n 'rosie_scheduler'
 tmux new-window -t $SESSION:11 -n 'rosie_routine'
-
+tmux new-window -t $SESSION:12 -n 'marathon_reporter'
 
 
 tmux select-window -t $SESSION:0
@@ -62,6 +62,9 @@ tmux send-keys "roslaunch strands_rosie strands_scheduler.launch"
 
 tmux select-window -t $SESSION:11
 tmux send-keys "rosrun rosie_routine marathon_y2_rosie_routine.py"
+
+tmux select-window -t $SESSION:12
+tmux send-keys "rosrun marathon_reporter mileage_monitor.py"
 
 # Set default window
 tmux select-window -t $SESSION:0
