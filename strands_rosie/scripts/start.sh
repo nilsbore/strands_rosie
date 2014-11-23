@@ -12,7 +12,10 @@ tmux new-window -t $SESSION:4 -n 'strands_ui'
 tmux new-window -t $SESSION:5 -n 'rosie_navigation'
 tmux new-window -t $SESSION:6 -n 'rosie_head_camera'
 tmux new-window -t $SESSION:7 -n 'RViz'
-tmux new-window -t $SESSION:8 -n 'drop_nodes'
+tmux new-window -t $SESSION:8 -n 'rosie_mapping'
+tmux new-window -t $SESSION:9 -n 'record_server'
+tmux new-window -t $SESSION:10 -n 'rosie_scheduler'
+tmux new-window -t $SESSION:11 -n 'rosie_routine'
 
 
 
@@ -41,14 +44,24 @@ tmux send-keys "roslaunch strands_rosie rosie_navigation.launch"
 
 tmux select-window -t $SESSION:6
 tmux send-keys "ssh hydro-default@strands-sidekick" C-m
-tmux send-keys "source release_ws/devel/setup.bash" C-m
 tmux send-keys "roslaunch openni_wrapper main.launch camera:=head_xtion"
 
 tmux select-window -t $SESSION:7
 tmux send-keys "rosrun rviz rviz"
 
 tmux select-window -t $SESSION:8
-tmux send-keys "rosrun topic_tools drop /head_xtion/rgb/image_color/compressed 9 10 /head_xtion/rgb/image_color/reducedBW/compressed & rosrun topic_tools drop /head_xtion/depth/image_rect/compressedDepth 9 10 /head_xtion/depth_registered/image_rect/reducedBW/compressedDepth"
+tmux send-keys "ssh hydro-default@strands-sidekick" C-m
+tmux send-keys "roslaunch strands_rosie rosie_mapping.launch"
+
+tmux select-window -t $SESSION:9
+tmux send-keys "ssh hydro-default@strands-sidekick" C-m
+tmux send-keys "roslaunch mongodb_openni_compression record_server.launch"
+
+tmux select-window -t $SESSION:10
+tmux send-keys "roslaunch strands_rosie strands_scheduler.launch"
+
+tmux select-window -t $SESSION:11
+tmux send-keys "rosrun rosie_routine marathon_y2_rosie_routine.py"
 
 # Set default window
 tmux select-window -t $SESSION:0
