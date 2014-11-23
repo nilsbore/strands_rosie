@@ -21,7 +21,7 @@ if __name__ == '__main__':
     sixty_mins = timedelta(minutes = 60)
     ninety_mins = timedelta(minutes = 90)
 
-    # how long to stand idle before doing something
+  # how long to stand idle before doing something
     idle_duration=rospy.Duration(20)
 
     # how long do you want it to take to do a tour. this must be greater than the time you think it will take!
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     tour_duration_estimate = rospy.Duration(60 * 40 * 2)
 
     routine = MarathonRoutine(daily_start=start, daily_end=end, 
-        idle_duration=idle_duration, tour_duration_estimate=tour_duration_estimate)    
+    idle_duration=idle_duration, tour_duration_estimate=tour_duration_estimate)    
 
     # go around every node every tour_duration_estimate
     #routine.create_patrol_routine()
@@ -45,6 +45,12 @@ if __name__ == '__main__':
     rgbd_waypoints = ['WayPoint4', 'WayPoint1']
     routine.create_rgbd_record_routine(waypoints=rgbd_waypoints, duration=rospy.Duration(60), repeat_delta=timedelta(hours=1))
 
+    #following_task = Task(start_node_id=self.waypoint,max_duration=rospy.Duration(300),action='simple_follow')
+    #task_utils.add_int_argument(following_task, 270)
+    #routine.repeat_every_hour(following_task, hours=1, times=1)
+
+
+
     # where to stop and what to tweet with the image
     # twitter_waypoints = [['WayPoint6', 'I hope everyone is working hard today #ERW14 #RobotMarathon'],
     #                    ['WayPoint2', 'Knowledge is power for @UoBLibServices #ERW14 #RobotMarathon']]    
@@ -57,7 +63,7 @@ if __name__ == '__main__':
     routine.message_store_entries_to_replicate(collections)
 
     db = 'roslog'
-    collections = ['head_xtion_compressed_depth_libav', 'head_xtion_compressed_rgb_theora']
+    collections = ['head_xtion_compressed_depth_libav', 'head_xtion_compressed_rgb_theora', 'head_xtion_compressed_rgb_compressed']
     routine.message_store_entries_to_replicate(collections)
 
     db = 'metric_maps'
