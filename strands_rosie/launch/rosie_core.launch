@@ -1,15 +1,16 @@
 <launch>
     <!-- Remote Launching -->
-    <arg name="machine" default="localhost" />
-    <arg name="user" default="" />
-
-    <!-- Datacentre -->
+    <arg name="machine" default="scitosstrands" />
+    <arg name="user" default="strands-user" />
     <arg name="db_path" default="/opt/strands/ros_datacentre"/>
 
+    <!-- Datacentre -->
 
     <include file="$(find strands_bringup)/launch/strands_core.launch">
         <arg name="machine"  value="$(arg machine)"/>
         <arg name="user"  value="$(arg user)"/>
         <arg name="db_path" default="$(arg db_path)"/>
     </include>
+
+    <param name="mongodb_host" type="string" value="$(arg machine)"/>
 </launch>

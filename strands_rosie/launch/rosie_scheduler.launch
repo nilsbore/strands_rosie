@@ -1,0 +1,12 @@
+<launch>
+    <include file="$(find task_executor)/task-scheduler.launch">
+    </include>
+
+    <node pkg="y1_interfaces" type="web_interface.py" name="web_interface" output="screen" respawn="true"/>
+
+
+    <!--
+    <node pkg="rosie_routine" type="marathon_y2_rosie_routine.py" name="marathon_y2_rosie_routine.py" output="screen" respawn="true"/>
+    -->  
+
+</launch>

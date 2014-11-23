@@ -27,4 +27,10 @@
         <arg name="js" value="$(arg js)" />
     </include>
 
+    <include file="$(find scitos_ptu)/launch/ptu_action_server_metric_map.launch">
+        <arg name="machine" value="$(arg machine)"/>
+        <arg name="user" value="$(arg user)" />
+    </include>
+
+
 </launch>
