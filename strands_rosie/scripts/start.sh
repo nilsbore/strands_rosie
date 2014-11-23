@@ -58,7 +58,7 @@ tmux send-keys "ssh hydro-default@strands-sidekick" C-m
 tmux send-keys "roslaunch mongodb_openni_compression record_server.launch"
 
 tmux select-window -t $SESSION:10
-tmux send-keys "roslaunch strands_rosie strands_scheduler.launch"
+tmux send-keys "roslaunch strands_rosie rosie_scheduler.launch"
 
 tmux select-window -t $SESSION:11
 tmux send-keys "rosrun rosie_routine marathon_y2_rosie_routine.py"
