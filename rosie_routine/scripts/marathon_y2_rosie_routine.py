@@ -22,7 +22,7 @@ if __name__ == '__main__':
     ninety_mins = timedelta(minutes = 90)
 
   # how long to stand idle before doing something
-    idle_duration=rospy.Duration(20)
+    idle_duration=rospy.Duration(5)
 
     # how long do you want it to take to do a tour. this must be greater than the time you think it will take!
     # the number argument is in seconds
