@@ -14,8 +14,8 @@ if __name__ == '__main__':
     # start and end times -- all times should be in a particular timezone - local has stopped working!
     # localtz = tzlocal()
     localtz = tzutc()
-    start = time(8,00, tzinfo=localtz)
-    end = time(00,00, tzinfo=localtz)
+    start = time(9,00, tzinfo=localtz)
+    end = time(19,00, tzinfo=localtz)
 
     thirty_mins = timedelta(minutes = 30)
     sixty_mins = timedelta(minutes = 60)
@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
     # go around every node every tour_duration_estimate
     #routine.create_patrol_routine()
-
+    routine.random_nodes = ['WayPoint22', 'WayPoint21','WayPoint20', 'WayPoint6','WayPoint7','WayPoint13','WayPoint14','WayPoint17']
     # patrol just these selected waypoints every 30 minutes in the first part of the day
     routine.create_patrol_routine(waypoints=['WayPoint7', 'WayPoint21'], daily_start=start, daily_end=end, repeat_delta=thirty_mins)
 
