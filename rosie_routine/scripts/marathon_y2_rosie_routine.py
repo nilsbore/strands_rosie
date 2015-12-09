@@ -33,17 +33,17 @@ if __name__ == '__main__':
 
     # go around every node every tour_duration_estimate
     #routine.create_patrol_routine()
-    routine.random_nodes = ['WayPoint22', 'WayPoint21','WayPoint20', 'WayPoint6','WayPoint7','WayPoint13','WayPoint14','WayPoint17']
+    routine.random_nodes = ['WayPoint4', 'WayPoint16', 'WayPoint22', 'WayPoint21','WayPoint20', 'WayPoint6','WayPoint7','WayPoint13','WayPoint14','WayPoint17']
     # patrol just these selected waypoints every 30 minutes in the first part of the day
-    routine.create_patrol_routine(waypoints=['WayPoint7', 'WayPoint21'], daily_start=start, daily_end=end, repeat_delta=thirty_mins)
+    routine.create_patrol_routine(waypoints=['WayPoint7', 'WayPoint21', 'WayPoint5', 'WayPoint16'], daily_start=start, daily_end=end, repeat_delta=thirty_mins)
 
     # do 3d scans
     scan_waypoints = ['WayPoint16', 'WayPoint19', 'WayPoint5']
-    routine.create_3d_scan_routine(waypoints=scan_waypoints, repeat_delta=timedelta(hours=1))
+    #routine.create_3d_scan_routine(waypoints=scan_waypoints, repeat_delta=timedelta(hours=1))
  
     # do rgbd recording for a minute at these places every two hours
     rgbd_waypoints = ['WayPoint4', 'WayPoint1']
-    routine.create_rgbd_record_routine(waypoints=rgbd_waypoints, duration=rospy.Duration(60), repeat_delta=timedelta(hours=1))
+    #routine.create_rgbd_record_routine(waypoints=rgbd_waypoints, duration=rospy.Duration(60), repeat_delta=timedelta(hours=1))
 
     #following_task = Task(start_node_id=self.waypoint,max_duration=rospy.Duration(300),action='simple_follow')
     #task_utils.add_int_argument(following_task, 270)
